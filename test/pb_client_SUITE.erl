@@ -459,7 +459,6 @@ crdt_map_rr_test(_Config) ->
       {{<<"e">>, antidote_crdt_orset}, {add_all, [<<"Apple">>, <<"Banana">>]}},
       {{<<"f">>, antidote_crdt_fat_counter}, {increment , 7}},
       {{<<"g">>, antidote_crdt_map_rr}, {update, [
-        {{<<"q">>, antidote_crdt_mvreg}, {assign, <<"Hello">>}},
         {{<<"x">>, antidote_crdt_fat_counter}, {increment, 17}}
       ]}},
       {{<<"h">>, antidote_crdt_map_rr}, {update, [
@@ -482,8 +481,6 @@ crdt_map_rr_test(_Config) ->
         {<<"b5">>, antidote_crdt_mvreg}
       ]}}
     ], Tx1),
-  ok = antidotec_pb:update_objects(Pid1, [
-      {Bound_object, remove, {<<"g">>, antidote_crdt_map_rr}}], Tx1),
   {ok, _} = antidotec_pb:commit_transaction(Pid1, Tx1),
   %% Read committed updated
   {ok, Tx3} = antidotec_pb:start_transaction(Pid1, ignore, {}),
@@ -496,6 +493,9 @@ crdt_map_rr_test(_Config) ->
     {{<<"d">>, antidote_crdt_orset}, [<<"Apple">>, <<"Banana">>]},
     {{<<"e">>, antidote_crdt_orset}, [<<"Apple">>, <<"Banana">>]},
     {{<<"f">>, antidote_crdt_fat_counter}, 7},
+    {{<<"g">>, antidote_crdt_map_rr}, [
+      {{<<"x">>, antidote_crdt_fat_counter}, 17}
+    ]},
     {{<<"h">>, antidote_crdt_map_rr}, [
       {{<<"x">>, antidote_crdt_fat_counter}, 15}
     ]},
