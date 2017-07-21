@@ -81,7 +81,7 @@
 
 % Allow antidote to buffer collections of transactions for a brief duration.
 % This is used to compact update operations that affect computational CRDTs.
--define(BUFFER_TXNS, true).
+-define(BUFFER_TXNS, false).
 -define(BUFFER_TXN_TIMER, 200). % buffer duration in milliseconds
 -define(CCRDT_REPLICATION_FACTOR, 2). % replication factor for CCRDT replicate ops
 
